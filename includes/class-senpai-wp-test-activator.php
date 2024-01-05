@@ -103,13 +103,16 @@ class Senpai_Wp_Test_Activator {
 		// Include Upgrade Script
 		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 
-		/* $example_table_name = $wpdb->prefix . "senpai_examples";
-		$example_sql = "CREATE TABLE $example_table_name (
+		$table_name = $wpdb->prefix . "senpai_form_test";
+		$sql = "CREATE TABLE $table_name (
 			id mediumint(11) NOT NULL AUTO_INCREMENT,
-			data varchar(40) NOT NULL,
+			name varchar(40) NOT NULL,
+			phone varchar(15) NOT NULL,
+			email varchar(50) NOT NULL,
+			message varchar(50) NOT NULL,
 			PRIMARY KEY  (id)
 		  ) $charset_collate;";
-		maybe_create_table( $example_table_name, $example_sql ); */
+		maybe_create_table( $table_name, $sql );
 	}
 
 }

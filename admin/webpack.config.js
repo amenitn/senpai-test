@@ -26,7 +26,8 @@ const config  = {
   entry: {
     "main/senpai-wp-test-loader": path.resolve(__dirname, 'src','main.js'),
     "main/senpai-wp-test-setting": path.resolve(__dirname, 'src','setting.js'),
-    "main/senpai-wp-test-notice": path.resolve(__dirname, 'src','notice.js')
+    "main/senpai-wp-test-notice": path.resolve(__dirname, 'src','notice.js'),
+    "main/senpai-wp-form-actions": path.resolve(__dirname, 'src','form.js'),
   },
   output: {
     path: path.resolve(__dirname, 'dist'),

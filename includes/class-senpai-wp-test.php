@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The core theme class.
  * 
@@ -15,7 +16,8 @@
  * @subpackage Senpai_Wp_Test/includes
  * @author     Amine Safsafi <amine.safsafi@senpai.codes>
  */
-class Senpai_Wp_Test {
+class Senpai_Wp_Test
+{
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -54,8 +56,9 @@ class Senpai_Wp_Test {
 	 *
 	 * @since 1.0.0
 	 */
-	public function __construct() {
-		if ( defined( 'SENPAI_WP_TEST_VERSION' ) ) {
+	public function __construct()
+	{
+		if (defined('SENPAI_WP_TEST_VERSION')) {
 			$this->version = SENPAI_WP_TEST_VERSION;
 		} else {
 			$this->version = '1.0.0';
@@ -67,7 +70,6 @@ class Senpai_Wp_Test {
 		$this->define_theme_features();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-
 	}
 
 	/**
@@ -86,14 +88,15 @@ class Senpai_Wp_Test {
 	 * @since 1.0.0
 	 * @access private
 	 */
-	private function load_dependencies() {
+	private function load_dependencies()
+	{
 
 		/**
 		 * The class responsible for JSON handler of the theme.
 		 * 
 		 */
 		require_once THEME_DIR . '/includes/class-senpai-wp-test-json.php';
-		
+
 		/**
 		 * The class responsible for Random String Generator handler of the theme.
 		 * 
@@ -129,7 +132,7 @@ class Senpai_Wp_Test {
 		 * of the theme.
 		 */
 		require_once THEME_DIR . '/includes/class-senpai-wp-test-comment-walker.php';
-		
+
 		/**
 		 * The class responsible for defining dashboard widgets
 		 * of the theme.
@@ -153,7 +156,7 @@ class Senpai_Wp_Test {
 		 * of the theme.
 		 */
 		require_once THEME_DIR . '/includes/class-senpai-wp-test-api.php';
-		
+
 		/**
 		 * The class responsible for defining MetaBoxes endpoints
 		 * of the theme.
@@ -172,7 +175,7 @@ class Senpai_Wp_Test {
 		 * of the theme.
 		 */
 		require_once THEME_DIR . '/includes/class-senpai-wp-test-customizer.php';
-		
+
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
@@ -185,7 +188,6 @@ class Senpai_Wp_Test {
 		require_once THEME_DIR . '/public/class-senpai-wp-test-public.php';
 
 		$this->loader = new Senpai_Wp_Test_Loader();
-
 	}
 
 	/**
@@ -197,12 +199,12 @@ class Senpai_Wp_Test {
 	 * @since 1.0.0
 	 * @access private
 	 */
-	private function set_locale() {
+	private function set_locale()
+	{
 
 		$theme_i18n = new Senpai_Wp_Test_i18n();
 
-		$this->loader->add_action( 'themes_loaded', $theme_i18n, 'load_theme_textdomain' );
-
+		$this->loader->add_action('themes_loaded', $theme_i18n, 'load_theme_textdomain');
 	}
 
 	/**
@@ -212,12 +214,12 @@ class Senpai_Wp_Test {
 	 * @since 1.0.0
 	 * @access private
 	 */
-	private function define_theme_features(){
+	private function define_theme_features()
+	{
 
 		$features = new Senpai_Wp_Test_Features();
-		$features->addNavMenus(['primary-menu' => 'Primary','footer-menu' => 'Footer']);
+		$features->addNavMenus(['primary-menu' => 'Primary', 'footer-menu' => 'Footer']);
 		$features->addWidget('primary-widget', 'Primary Widget');
-
 	}
 
 	/**
@@ -227,9 +229,10 @@ class Senpai_Wp_Test {
 	 * @since 1.0.0
 	 * @access private
 	 */
-	private function define_admin_hooks() {
+	private function define_admin_hooks()
+	{
 
-		$theme_admin = new Senpai_Wp_Test_Admin( $this->get_senpai_wp_test(), $this->get_version() );
+		$theme_admin = new Senpai_Wp_Test_Admin($this->get_senpai_wp_test(), $this->get_version());
 		$theme_widgets = new Senpai_Wp_Test_Widgets();
 		$theme_metaboxes = new Senpai_Wp_Test_MetaBoxes();
 		//$theme_blocks = new Senpai_Wp_Test_Blocks();
@@ -237,21 +240,24 @@ class Senpai_Wp_Test {
 
 		$theme_notices = new Senpai_Wp_Test_Notices();
 
-		$this->loader->add_action( 'admin_enqueue_scripts', $theme_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $theme_admin, 'enqueue_scripts' );
-		$this->loader->add_action( 'wp_dashboard_setup', $theme_widgets, 'load_widgets' );
-		
-		$this->loader->add_action( 'add_meta_boxes', $theme_metaboxes,'register_metaboxes' );
-		
+		$this->loader->add_action('admin_enqueue_scripts', $theme_admin, 'enqueue_styles');
+		$this->loader->add_action('admin_enqueue_scripts', $theme_admin, 'enqueue_scripts');
+		$this->loader->add_action('wp_dashboard_setup', $theme_widgets, 'load_widgets');
+
+		$this->loader->add_action('add_meta_boxes', $theme_metaboxes, 'register_metaboxes');
+
 		//$this->loader->add_action( 'init', $theme_blocks, 'load_blocks' );
 		//$this->loader->add_filter( 'block_categories', $theme_blocks, 'custom_blocks_cat', 10, 2 );
 
-		$this->loader->add_action( 'customize_register', $theme_customizer, 'load_customizer' );
+		$this->loader->add_action('customize_register', $theme_customizer, 'load_customizer');
 
 
-		$this->loader->add_action( 'admin_notices', $theme_notices,'get_all' );
-		$this->loader->add_action( 'wp_ajax_dashboard_notice_senpai', $theme_notices, 'dissmiss' );
-
+		$this->loader->add_action('admin_notices', $theme_notices, 'get_all');
+		$this->loader->add_action('wp_ajax_dashboard_notice_senpai', $theme_notices, 'dissmiss');
+		$this->loader->add_action('admin_menu', $theme_admin, 'senpai_admin_pages_handler', 10);
+		//$this->loader->add_action( 'wp_ajax_senpai_admin_text_ajax', $theme_admin, 'senpai_admin_text_ajax_handler');
+		$this->loader->add_action('wp_ajax_edit_item', $theme_admin, 'edit_item_handler');
+		$this->loader->add_action('wp_ajax_delete_item', $theme_admin, 'delete_item_handler');
 	}
 
 	/**
@@ -261,17 +267,18 @@ class Senpai_Wp_Test {
 	 * @since 1.0.0
 	 * @access private
 	 */
-	private function define_public_hooks() {
+	private function define_public_hooks()
+	{
 
-		$theme_public = new Senpai_Wp_Test_Public( $this->get_senpai_wp_test(), $this->get_version() );
+		$theme_public = new Senpai_Wp_Test_Public($this->get_senpai_wp_test(), $this->get_version());
 		$theme_shortcodes = new Senpai_Wp_Test_ShortCodes();
 		$theme_apis = new Senpai_Wp_Test_API();
 
-		$this->loader->add_action( 'wp_enqueue_scripts', $theme_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $theme_public, 'enqueue_scripts' );
-		$this->loader->add_action( 'init', $theme_shortcodes, 'load_shortcodes' );
-		$this->loader->add_action( 'rest_api_init', $theme_apis, 'register_endpoints' );
-
+		$this->loader->add_action('wp_enqueue_scripts', $theme_public, 'enqueue_styles');
+		$this->loader->add_action('wp_enqueue_scripts', $theme_public, 'enqueue_scripts');
+		$this->loader->add_action('init', $theme_shortcodes, 'load_shortcodes');
+		$this->loader->add_action('rest_api_init', $theme_apis, 'register_endpoints');
+		$this->loader->add_action('wp_ajax_senpai_public_form_ajax', $theme_public, 'senpai_public_form_ajax_handler');
 	}
 
 	/**
@@ -279,7 +286,8 @@ class Senpai_Wp_Test {
 	 *
 	 * @since 1.0.0
 	 */
-	public function run() {
+	public function run()
+	{
 		$this->loader->run();
 	}
 
@@ -290,7 +298,8 @@ class Senpai_Wp_Test {
 	 * @since 1.0.0
 	 * @return string The name of the theme.
 	 */
-	public function get_senpai_wp_test() {
+	public function get_senpai_wp_test()
+	{
 		return $this->senpai_wp_test;
 	}
 
@@ -300,7 +309,8 @@ class Senpai_Wp_Test {
 	 * @since 1.0.0
 	 * @return Senpai_Wp_Test_Loader Orchestrates the hooks of the theme.
 	 */
-	public function get_loader() {
+	public function get_loader()
+	{
 		return $this->loader;
 	}
 
@@ -310,8 +320,8 @@ class Senpai_Wp_Test {
 	 * @since 1.0.0
 	 * @return string The version number of the theme.
 	 */
-	public function get_version() {
+	public function get_version()
+	{
 		return $this->version;
 	}
-
 }

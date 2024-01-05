@@ -18,10 +18,10 @@ jQuery(document).ready(function($){
 jQuery(document).ready( async function($){
     console.log('publicIp ready');
 
-    publicIpv4().then(function(ipv4){
-        $('#senpai-info-ip-v4').html(ipv4);
-    }).catch(e => {
-        console.log('There has been a problem with your fetch operation IP V4: ' + e.message);
-        $('#senpai-info-ip-v4').html('Not Reachable');
-      });
+    // publicIpv4().then(function(ipv4){
+    //     $('#senpai-info-ip-v4').html(ipv4);
+    // }).catch(e => {
+    //     console.log('There has been a problem with your fetch operation IP V4: ' + e.message);
+    //     $('#senpai-info-ip-v4').html('Not Reachable');
+    //   });
 }) 
